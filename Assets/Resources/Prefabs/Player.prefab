@@ -106,7 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody2D: {fileID: 50801061302055804}
-  player: {fileID: 0}
   prevMouse: {x: 0, y: 0}
   currentMouse: {x: 0, y: 0}
   angle: 0
@@ -142,7 +141,7 @@ MonoBehaviour:
     i14: 4
     i15: 194
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114756908539901054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
   m_SendInterval: 0.033333335
-  m_SyncRotationAxis: 3
+  m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
