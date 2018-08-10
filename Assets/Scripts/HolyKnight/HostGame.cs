@@ -6,7 +6,8 @@ public class HostGame : MonoBehaviour
     [SerializeField]
     private uint roomSize = 2;
 
-    private string roomName;
+    [SerializeField]
+    private string roomName = "Hello, World!";
 
     private NetworkManager networkManager;
 
@@ -28,6 +29,8 @@ public class HostGame : MonoBehaviour
         {
             Debug.Log("Create - RoomName: " + roomName + " | RoomSize: " + roomSize);
             networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
+
+            GameObject.Find("HostGame").gameObject.active = false;
         }
     }
 }
