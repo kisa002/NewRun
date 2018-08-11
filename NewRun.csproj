@@ -306,6 +306,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\HostGame.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\JoinGame.cs" />

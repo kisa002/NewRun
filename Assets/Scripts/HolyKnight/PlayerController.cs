@@ -8,14 +8,22 @@ public class PlayerController : NetworkBehaviour
     public Rigidbody2D rigidbody2D;
     public Vector2 prevMouse, currentMouse;
 
+    public GameObject mainCamera;
+
     public float angle, distance;
+
 
     private void Start()
     {
         if (!isLocalPlayer)
             return;
 
-        GameObject.Find("JoinGame").SetActive(false);
+        mainCamera = GameObject.Find("Main Camera");
+
+        if (GameObject.Find("JoinGame").activeSelf)
+            GameObject.Find("JoinGame").SetActive(false);
+        
+        GameManager.Instance.StartGame();
     }
 
     void Update ()
@@ -30,6 +38,8 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetKey(KeyCode.DownArrow))
             transform.Translate(Vector2.down * .05f);
+
+        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, transform.position.y, -10);
 	}
 
     public void TouchIn()

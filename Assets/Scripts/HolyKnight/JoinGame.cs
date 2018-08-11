@@ -63,7 +63,7 @@ public class JoinGame : MonoBehaviour
         }
 
         if (roomList.Count == 0)
-            status.text = "No room, Please Create room";
+            status.text = "생성된 방이 없습니다.";
     }
 
     void ClearRoomList()
@@ -78,7 +78,7 @@ public class JoinGame : MonoBehaviour
     {
         networkManager.matchMaker.JoinMatch(_match.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
         ClearRoomList();
-        status.text = "JOINNING";
+        status.text = _match.name + "방 접속...";
 
         Debug.Log("Joining " + _match.name);
     }
