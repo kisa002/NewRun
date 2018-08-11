@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class HostGame : MonoBehaviour
@@ -25,12 +26,14 @@ public class HostGame : MonoBehaviour
 
     public void CreateRoom()
     {
-        if (roomName != "" || roomName != null)
+        roomName = GameObject.Find("TextHostGame").GetComponent<Text>().text;
+
+        if (roomName != "" && roomName != null)
         {
             Debug.Log("Create - RoomName: " + roomName + " | RoomSize: " + roomSize);
             networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
 
-            GameObject.Find("HostGame").gameObject.active = false;
+            GameObject.Find("HostGame").SetActive(false);
         }
     }
 }

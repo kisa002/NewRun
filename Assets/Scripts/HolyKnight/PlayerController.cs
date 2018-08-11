@@ -9,8 +9,16 @@ public class PlayerController : NetworkBehaviour
     public Vector2 prevMouse, currentMouse;
 
     public float angle, distance;
-	
-	void Update ()
+
+    private void Start()
+    {
+        if (!isLocalPlayer)
+            return;
+
+        GameObject.Find("JoinGame").SetActive(false);
+    }
+
+    void Update ()
     {
         if (!isLocalPlayer)
             return;

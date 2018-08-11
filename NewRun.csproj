@@ -308,8 +308,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\HostGame.cs" />
+    <Compile Include="Assets\Scripts\HolyKnight\JoinGame.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\HolyKnight\RoomListItem.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\Test\Test.cs" />
+    <Compile Include="Assets\Scripts\HolyKnight\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
