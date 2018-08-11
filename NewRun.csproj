@@ -309,6 +309,7 @@
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\HostGame.cs" />
+    <Compile Include="Assets\Scripts\HolyKnight\ItemManager.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\JoinGame.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\PlayerController.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\RoomListItem.cs" />

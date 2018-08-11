@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50127747191992372}
   - component: {fileID: 114244832588906016}
   - component: {fileID: 114308640226131876}
+  - component: {fileID: 58953341200642878}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1121615676128630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: -5}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,6 +65,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58953341200642878
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121615676128630}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.5
 --- !u!114 &114051319252865818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,6 +94,7 @@ MonoBehaviour:
   rigidbody2D: {fileID: 50127747191992372}
   prevMouse: {x: 0, y: 0}
   currentMouse: {x: 0, y: 0}
+  mainCamera: {fileID: 0}
   angle: 0
   distance: 0
 --- !u!114 &114244832588906016
