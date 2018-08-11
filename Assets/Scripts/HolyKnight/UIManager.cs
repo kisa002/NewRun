@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     public GameObject waitGame, hostGame, mainGame, joinGame, resultGame;
-    public Text textResult, textResultBonus, textResultEndrophin, textResultExp;
+    public Text textResult, textResultBonus, textResultEndrophin, textResultExp, textName;
     public Transform back1, back2, back3;
 
     private void Awake()
@@ -23,6 +23,16 @@ public class UIManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene("InGame");
+    }
+
+    public void SetUsername()
+    {
+        GameManager.Instance.username = textName.text;
+        GameManager.Instance.playerName[0] = textName.text;
+
+        GameObject.Find("NameGame").SetActive(false);
+
+        UIManager.Instance.ShowMain();
     }
 
     public void SetResultData(bool isWin, bool isLevelup, int endrophin, int exp)

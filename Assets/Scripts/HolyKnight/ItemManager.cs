@@ -16,7 +16,7 @@ public class ItemManager : NetworkBehaviour
 
         for(int i=0; i<500; i++)
         {
-            rand = Random.Range(0, 53);
+            rand = Random.Range(0, 65);
 
             if (rand < 10)
                 rand = 0;
@@ -28,7 +28,7 @@ public class ItemManager : NetworkBehaviour
                 rand = 3;
             else if (rand < 50)
                 rand = 4;
-            else if (rand < 53)
+            else if (rand < 65)
                 rand = 5;
 
             GameObject item = Instantiate(prefabItem[rand]);

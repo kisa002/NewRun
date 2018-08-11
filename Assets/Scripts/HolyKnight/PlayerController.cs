@@ -12,15 +12,14 @@ public class PlayerController : NetworkBehaviour
     public GameObject mainCamera;
 
     public float angle, distance;
-
     public bool isFreeze = false;
+
+    [SyncVar]
+    public string username = "Holy-Knight";
     
     private void Start()
     {
-        //if(isServer)
-        //    GameObject.Find("Canvas").transform.Find("WaitGame").gameObject.SetActive(true);
-
-        //StartInit();
+        CmdChangeName(GameManager.Instance.username);
     }
 
     void StartInit()
@@ -53,6 +52,11 @@ public class PlayerController : NetworkBehaviour
 
     void Update ()
     {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            CmdCheckName(username);
+        }
+
         if ( (!GameManager.Instance.isPlaying && NetworkServer.connections.Count == 2) || (!isServer && !GameManager.Instance.isPlaying))
         {
             StartInit();
@@ -97,7 +101,7 @@ public class PlayerController : NetworkBehaviour
         if (collision.gameObject.name == "DeadLine")
         {
             //NetworkManager.Destroy(this.gameObject);
-            isFreeze = true;
+            StartCoroutine(Freeze());
         }
 
         if (collision.gameObject.tag == "ItemA")
@@ -116,105 +120,92 @@ public class PlayerController : NetworkBehaviour
 
         if (collision.gameObject.tag == "ItemC")
         {
-            CmdEatItemC(isServer);
+            CmdEatItemC(username);
 
             NetworkManager.Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.name == "FinishLine")
         {
-            CmdResult(isServer);
+            CmdResult(username);
         }
 
         //Debug.Log(collision.gameObject.tag);
     }
 
     [Command]
-    void CmdResult(bool server)
+    void CmdChangeName(string name)
     {
-        Debug.Log("CMD");
-        RpcResult(server);
+        RpcChangeName(name);
     }
 
     [ClientRpc]
-    void RpcResult(bool server)
+    void RpcChangeName(string name)
     {
-        Debug.Log("RPC");
+        username = name;
+
+        if (!isLocalPlayer)
+            GameManager.Instance.playerName[1] = username;
+    }
+
+    [Command]
+    void CmdCheckName(string name)
+    {
+        RpcCheckName(name);
+    }
+
+    [ClientRpc]
+    void RpcCheckName(string name)
+    {
+        Debug.Log(name);
+    }
+
+    [Command]
+    void CmdResult(string name)
+    {
+        RpcResult(name);
+    }
+
+    [ClientRpc]
+    void RpcResult(string name)
+    {
         int endrophin;
         int exp;
         bool isLevelup = false;
         bool isWin = false;
-
-        if(isServer)
+        
+        if (GameManager.Instance.username == name)
         {
-            if (server)
+            exp = 500 + Random.Range(150, 400);
+
+            if (GameManager.Instance.IncreaseExp(exp))
             {
-                exp = 500 + Random.Range(150, 400);
-
-                if (GameManager.Instance.IncreaseExp(exp))
-                {
-                    endrophin = 500;
-                    isLevelup = true;
-                }
-                else
-                    endrophin = 20 + Random.Range(10, 30);
-
-                isWin = true;
-
-                Debug.Log("SERVER WIN");
+                endrophin = 500;
+                isLevelup = true;
             }
             else
-            {
-                exp = 350 + Random.Range(50, 150);
+                endrophin = 20 + Random.Range(10, 30);
 
-                if (GameManager.Instance.IncreaseExp(exp))
-                {
-                    endrophin = 500;
-                    isLevelup = true;
-                }
-                else
-                    endrophin = 10 + Random.Range(5, 15);
+            isWin = true;
 
-                Debug.Log("SERVER LOSE");
-            }
-            UIManager.Instance.ShowResult();
-            UIManager.Instance.SetResultData(isWin, isLevelup, endrophin, exp);
+            Debug.Log(name + ": WIN - " + username);
         }
-        else if(isClient)
+        else
         {
-            if (!server)
+            exp = 350 + Random.Range(50, 150);
+
+            if (GameManager.Instance.IncreaseExp(exp))
             {
-                exp = 500 + Random.Range(150, 400);
-
-                if (GameManager.Instance.IncreaseExp(exp))
-                {
-                    endrophin = 500;
-                    isLevelup = true;
-                }
-                else
-                    endrophin = 20 + Random.Range(10, 30);
-
-                isWin = false;
-
-                Debug.Log("CLIENT WIN");
+                endrophin = 500;
+                isLevelup = true;
             }
             else
-            {
-                exp = 350 + Random.Range(50, 150);
+                endrophin = 10 + Random.Range(5, 15);
 
-                if (GameManager.Instance.IncreaseExp(exp))
-                {
-                    endrophin = 500;
-                    isLevelup = true;
-                }
-                else
-                    endrophin = 10 + Random.Range(5, 15);
-
-                Debug.Log("CLIENT LOSE");
-            }
-            UIManager.Instance.ShowResult();
-            UIManager.Instance.SetResultData(isWin, isLevelup, endrophin, exp);
+            Debug.Log(name + ": LOSE - " + username);
         }
+        UIManager.Instance.ShowResult();
+        UIManager.Instance.SetResultData(isWin, isLevelup, endrophin, exp);
 
         //MatchInfo matchInfo = NetworkManager.singleton.matchInfo;
         //NetworkManager.singleton.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, NetworkManager.singleton.OnDropConnection);
@@ -248,20 +239,29 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    void CmdEatItemC(bool server)
+    void CmdEatItemC(string name)
     {
         StopCoroutine(EatItemC());
-        RpcEatItemC(server);
+        RpcEatItemC(name);
     }
 
     [ClientRpc]
-    void RpcEatItemC(bool server)
+    void RpcEatItemC(string name)
     {
-        if(isServer != server)
+        if(GameManager.Instance.username != name)
             StartCoroutine(EatItemC());
 
         //if (isClient != server)
         //    StartCoroutine(EatItemC());
+    }
+
+    IEnumerator Freeze()
+    {
+        isFreeze = true;
+        yield return new WaitForSeconds(2f);
+
+        isFreeze = false;
+        transform.position = new Vector3(0, transform.position.y, transform.position.z);
     }
 
     private IEnumerator EatItemA()

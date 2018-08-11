@@ -8,10 +8,14 @@ public class GameManager : MonoBehaviour
 
     public bool isPlaying = false;
 
+    public string username;
+
     public int level = 1;
     public int endrophin = 100;
     public int currentExp = 0;
     public int maxExp = 100;
+
+    public string[] playerName = new string[2];
 
     private void Awake()
     {
@@ -24,6 +28,12 @@ public class GameManager : MonoBehaviour
         Screen.SetResolution(564, 960, false);
         Screen.fullScreen = false;
 #endif
+    }
+
+    private void Start()
+    {
+        if(username != null)
+            playerName[0] = username;
     }
 
     public void IncreaseEndrophin(int amount)
