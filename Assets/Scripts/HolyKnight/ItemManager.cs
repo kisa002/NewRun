@@ -12,12 +12,29 @@ public class ItemManager : NetworkBehaviour
         float x = 0;
         float y = 0;
 
+        int rand = -1;
+
         for(int i=0; i<500; i++)
         {
-            GameObject item = Instantiate(prefabItem[Random.Range(0, 5)]);
+            rand = Random.Range(0, 53);
+
+            if (rand < 10)
+                rand = 0;
+            else if (rand < 20)
+                rand = 1;
+            else if (rand < 30)
+                rand = 2;
+            else if (rand < 40)
+                rand = 3;
+            else if (rand < 50)
+                rand = 4;
+            else if (rand < 53)
+                rand = 5;
+
+            GameObject item = Instantiate(prefabItem[rand]);
 
             x = Random.Range(-1.5f, 1.5f);
-            y += Random.Range(1, 3);
+            y += Random.Range(1.5f, 4.5f);
 
             item.transform.position = new Vector3(x, y, -4f);
 

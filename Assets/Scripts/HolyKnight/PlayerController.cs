@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.Match;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerController : NetworkBehaviour
     public GameObject mainCamera;
 
     public float angle, distance;
+
+    public bool isFreeze = false;
     
     private void Start()
     {
@@ -71,50 +74,194 @@ public class PlayerController : NetworkBehaviour
 
     public void TouchIn()
     {
+        if (isFreeze)
+            return;
+
         prevMouse = Input.mousePosition;
     }
 
     public void TouchOut()
     {
-        currentMouse = Input.mousePosition;
+        if (isFreeze)
+            return;
 
+        currentMouse = Input.mousePosition;
         rigidbody2D.AddForce(prevMouse - currentMouse);
 
         distance = Vector2.Distance(prevMouse, currentMouse);
         angle = Vector2.Angle(prevMouse, currentMouse);
-
-        //player.transform.eulerAngles = new Vector3(0, 0, angle);
-
-        //player.transform.Translate(Vector2.up * 1);
-        
-        //Debug.Log("Distance: " + distance.ToString());
-        //Debug.Log("Angle: " + angle.ToString());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "DeadLine")
         {
-            NetworkManager.Destroy(this.gameObject);
+            //NetworkManager.Destroy(this.gameObject);
+            isFreeze = true;
         }
 
         if (collision.gameObject.tag == "ItemA")
         {
-            StopCoroutine(EatItemA());
-            StartCoroutine(EatItemA());
+            CmdEatItemA();
             
             NetworkManager.Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.tag == "ItemB")
         {
-            StopCoroutine(EatItemB());
-            StartCoroutine(EatItemB());
-            
+            CmdEatItemB();
+
             NetworkManager.Destroy(collision.gameObject);
         }
 
+        if (collision.gameObject.tag == "ItemC")
+        {
+            CmdEatItemC(isServer);
+
+            NetworkManager.Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.name == "FinishLine")
+        {
+            CmdResult(isServer);
+        }
+
         //Debug.Log(collision.gameObject.tag);
+    }
+
+    [Command]
+    void CmdResult(bool server)
+    {
+        Debug.Log("CMD");
+        RpcResult(server);
+    }
+
+    [ClientRpc]
+    void RpcResult(bool server)
+    {
+        Debug.Log("RPC");
+        int endrophin;
+        int exp;
+        bool isLevelup = false;
+        bool isWin = false;
+
+        if(isServer)
+        {
+            if (server)
+            {
+                exp = 500 + Random.Range(150, 400);
+
+                if (GameManager.Instance.IncreaseExp(exp))
+                {
+                    endrophin = 500;
+                    isLevelup = true;
+                }
+                else
+                    endrophin = 20 + Random.Range(10, 30);
+
+                isWin = true;
+
+                Debug.Log("SERVER WIN");
+            }
+            else
+            {
+                exp = 350 + Random.Range(50, 150);
+
+                if (GameManager.Instance.IncreaseExp(exp))
+                {
+                    endrophin = 500;
+                    isLevelup = true;
+                }
+                else
+                    endrophin = 10 + Random.Range(5, 15);
+
+                Debug.Log("SERVER LOSE");
+            }
+            UIManager.Instance.ShowResult();
+            UIManager.Instance.SetResultData(isWin, isLevelup, endrophin, exp);
+        }
+        else if(isClient)
+        {
+            if (!server)
+            {
+                exp = 500 + Random.Range(150, 400);
+
+                if (GameManager.Instance.IncreaseExp(exp))
+                {
+                    endrophin = 500;
+                    isLevelup = true;
+                }
+                else
+                    endrophin = 20 + Random.Range(10, 30);
+
+                isWin = false;
+
+                Debug.Log("CLIENT WIN");
+            }
+            else
+            {
+                exp = 350 + Random.Range(50, 150);
+
+                if (GameManager.Instance.IncreaseExp(exp))
+                {
+                    endrophin = 500;
+                    isLevelup = true;
+                }
+                else
+                    endrophin = 10 + Random.Range(5, 15);
+
+                Debug.Log("CLIENT LOSE");
+            }
+            UIManager.Instance.ShowResult();
+            UIManager.Instance.SetResultData(isWin, isLevelup, endrophin, exp);
+        }
+
+        //MatchInfo matchInfo = NetworkManager.singleton.matchInfo;
+        //NetworkManager.singleton.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, NetworkManager.singleton.OnDropConnection);
+        //NetworkManager.singleton.StopHost();
+    }
+
+    [Command]
+    void CmdEatItemA()
+    {
+        StopCoroutine(EatItemA());
+        RpcEatItemA();
+    }
+
+    [ClientRpc]
+    void RpcEatItemA()
+    {
+        StartCoroutine(EatItemA());
+    }
+
+    [Command]
+    void CmdEatItemB()
+    {
+        StopCoroutine(EatItemB());
+        RpcEatItemB();
+    }
+
+    [ClientRpc]
+    void RpcEatItemB()
+    {
+        StartCoroutine(EatItemB());
+    }
+
+    [Command]
+    void CmdEatItemC(bool server)
+    {
+        StopCoroutine(EatItemC());
+        RpcEatItemC(server);
+    }
+
+    [ClientRpc]
+    void RpcEatItemC(bool server)
+    {
+        if(isServer != server)
+            StartCoroutine(EatItemC());
+
+        //if (isClient != server)
+        //    StartCoroutine(EatItemC());
     }
 
     private IEnumerator EatItemA()
@@ -131,5 +278,13 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(4f);
 
         transform.localScale = new Vector3(0.2f, 0.2f, 1);
+    }
+
+    private IEnumerator EatItemC()
+    {
+        rigidbody2D.drag = 1000f;
+        yield return new WaitForSeconds(2f);
+
+        rigidbody2D.drag = 10f;
     }
 }

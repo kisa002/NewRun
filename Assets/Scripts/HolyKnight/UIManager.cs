@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    public GameObject waitGame, hostGame, mainGame, joinGame;
+    public GameObject waitGame, hostGame, mainGame, joinGame, resultGame;
+    public Text textResult, textResultBonus, textResultEndrophin, textResultExp;
     public Transform back1, back2, back3;
 
     private void Awake()
@@ -16,6 +18,31 @@ public class UIManager : MonoBehaviour
             UIManager.Instance = this;
         else
             Destroy(this.gameObject);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("InGame");
+    }
+
+    public void SetResultData(bool isWin, bool isLevelup, int endrophin, int exp)
+    {
+        if (isWin)
+        {
+            textResult.text = "합격";
+            textResult.color = Color.white;
+        }
+        else
+        {
+            textResult.text = "불합격";
+            textResult.color = new Color(176f / 255f, 26f / 255f, 26f / 255f);
+        }
+
+        if (isLevelup)
+            textResultBonus.gameObject.SetActive(true);
+
+        textResultEndrophin.text = endrophin.ToString();
+        textResultExp.text = "EXP + " + exp.ToString();
     }
 
     public void ShowHostGame()
@@ -37,6 +64,7 @@ public class UIManager : MonoBehaviour
         mainGame.SetActive(true);
         joinGame.SetActive(false);
         hostGame.SetActive(false);
+        resultGame.SetActive(false);
     }
 
     public void ShowWait()
@@ -50,6 +78,20 @@ public class UIManager : MonoBehaviour
         joinGame.SetActive(false);
         hostGame.SetActive(false);
         waitGame.SetActive(false);
+    }
+
+    public void ShowResult()
+    {
+        resultGame.SetActive(true);
+        mainGame.SetActive(false);
+        joinGame.SetActive(false);
+        hostGame.SetActive(false);
+        waitGame.SetActive(false);
+    }
+
+    public void HideResult()
+    {
+        resultGame.SetActive(false);
     }
 
     private void Update()
