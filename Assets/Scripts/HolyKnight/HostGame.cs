@@ -33,7 +33,7 @@ public class HostGame : MonoBehaviour
             Debug.Log("Create - RoomName: " + roomName + " | RoomSize: " + roomSize);
             networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
 
-            GameObject.Find("HostGame").SetActive(false);
+            UIManager.Instance.ShowWait();
         }
     }
 }

@@ -11,17 +11,20 @@ public class PlayerController : NetworkBehaviour
     public GameObject mainCamera;
 
     public float angle, distance;
-
-
+    
     private void Start()
     {
-        StartInit();
+        //if(isServer)
+        //    GameObject.Find("Canvas").transform.Find("WaitGame").gameObject.SetActive(true);
+
+        //StartInit();
     }
 
     void StartInit()
     {
         if (!isLocalPlayer)
         {
+            Debug.Log("FAKE");
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.35f);
             return;
         }
@@ -31,6 +34,8 @@ public class PlayerController : NetworkBehaviour
 
         if (isServer)
         {
+            UIManager.Instance.HideWait();
+
             GameObject.Find("ItemManager").GetComponent<ItemManager>().SpawnItem();
             Debug.Log("CREATE ITEM - It is Server");
         }
@@ -45,7 +50,12 @@ public class PlayerController : NetworkBehaviour
 
     void Update ()
     {
-        if (!isLocalPlayer)
+        if ( (!GameManager.Instance.isPlaying && NetworkServer.connections.Count == 2) || (!isServer && !GameManager.Instance.isPlaying))
+        {
+            StartInit();
+        }
+
+        if (!isLocalPlayer || !GameManager.Instance.isPlaying)
             return;
 
         if (Input.GetMouseButtonDown(0))
@@ -77,8 +87,8 @@ public class PlayerController : NetworkBehaviour
 
         //player.transform.Translate(Vector2.up * 1);
         
-        Debug.Log("Distance: " + distance.ToString());
-        Debug.Log("Angle: " + angle.ToString());
+        //Debug.Log("Distance: " + distance.ToString());
+        //Debug.Log("Angle: " + angle.ToString());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -92,8 +102,7 @@ public class PlayerController : NetworkBehaviour
         {
             StopCoroutine(EatItemA());
             StartCoroutine(EatItemA());
-
-            Debug.Log("AAA");
+            
             NetworkManager.Destroy(collision.gameObject);
         }
 
@@ -101,12 +110,11 @@ public class PlayerController : NetworkBehaviour
         {
             StopCoroutine(EatItemB());
             StartCoroutine(EatItemB());
-
-            Debug.Log("BBB");
+            
             NetworkManager.Destroy(collision.gameObject);
         }
 
-        Debug.Log(collision.gameObject.tag);
+        //Debug.Log(collision.gameObject.tag);
     }
 
     private IEnumerator EatItemA()

@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         isPlaying = true;
-        Debug.Log("TRUE");
     }
 
     public void EndGame()

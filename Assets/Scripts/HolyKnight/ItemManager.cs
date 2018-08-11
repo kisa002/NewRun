@@ -23,7 +23,7 @@ public class ItemManager : NetworkBehaviour
 
             NetworkServer.Spawn(item);
 
-            Debug.Log("CREATE ITEM: x=" + x + " / y=" + y);
+            //Debug.Log("CREATE ITEM: x=" + x + " / y=" + y);
         }
     }
 }

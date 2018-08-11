@@ -5,27 +5,51 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
+    public GameObject waitGame, hostGame, mainGame, joinGame;
     public Transform back1, back2, back3;
+
+    private void Awake()
+    {
+        if (UIManager.Instance == null)
+            UIManager.Instance = this;
+        else
+            Destroy(this.gameObject);
+    }
 
     public void ShowHostGame()
     {
-        GameObject.Find("Canvas").transform.Find("HostGame").gameObject.SetActive(true);
-        GameObject.Find("Canvas").transform.Find("MainGame").gameObject.SetActive(false);
-        GameObject.Find("Canvas").transform.Find("JoinGame").gameObject.SetActive(false);
+        hostGame.SetActive(true);
+        mainGame.SetActive(false);
+        joinGame.SetActive(false);
     }
 
     public void ShowJoinGame()
     {
-        GameObject.Find("Canvas").transform.Find("JoinGame").gameObject.SetActive(true);
-        GameObject.Find("Canvas").transform.Find("HostGame").gameObject.SetActive(false);
-        GameObject.Find("Canvas").transform.Find("MainGame").gameObject.SetActive(false);
+        joinGame.SetActive(true);
+        hostGame.SetActive(false);
+        mainGame.SetActive(false);
     }
 
     public void ShowMain()
     {
-        GameObject.Find("Canvas").transform.Find("MainGame").gameObject.SetActive(true);
-        GameObject.Find("Canvas").transform.Find("JoinGame").gameObject.SetActive(false);
-        GameObject.Find("Canvas").transform.Find("HostGame").gameObject.SetActive(false);
+        mainGame.SetActive(true);
+        joinGame.SetActive(false);
+        hostGame.SetActive(false);
+    }
+
+    public void ShowWait()
+    {
+        waitGame.SetActive(true);
+    }
+
+    public void HideWait()
+    {
+        mainGame.SetActive(false);
+        joinGame.SetActive(false);
+        hostGame.SetActive(false);
+        waitGame.SetActive(false);
     }
 
     private void Update()
