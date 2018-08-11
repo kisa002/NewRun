@@ -207,6 +207,8 @@ public class PlayerController : NetworkBehaviour
 
             Debug.Log(name + ": LOSE - " + username);
         }
+        GameManager.Instance.IncreaseEndrophin(endrophin);
+
         UIManager.Instance.ShowResult();
         UIManager.Instance.SetResultData(isWin, isLevelup, endrophin, exp);
 

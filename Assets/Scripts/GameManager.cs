@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     public int currentExp = 0;
     public int maxExp = 100;
 
+    public int currentSkin = 0;
+    public bool[] invenSkin = new bool[6];
+
     public GameObject player;
 
     public string[] playerName = new string[2];
@@ -36,6 +39,18 @@ public class GameManager : MonoBehaviour
     {
         if(username != null)
             playerName[0] = username;
+
+        invenSkin[0] = true;
+    }
+
+    public int GetCurrentSkin()
+    {
+        return currentSkin;
+    }
+
+    public void SetCurrentSkin(int id)
+    {
+        currentSkin = id;
     }
 
     public void IncreaseEndrophin(int amount)

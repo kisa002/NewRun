@@ -20,6 +20,14 @@ public class UIManager : MonoBehaviour
             Destroy(this.gameObject);
     }
 
+    private void Start()
+    {
+        //if(Preferse.username != null)
+        //{
+        //    UIManager.Instance.ShowMain();
+        //}
+    }
+
     public void RestartGame()
     {
         SceneManager.LoadScene("InGame");
@@ -75,6 +83,7 @@ public class UIManager : MonoBehaviour
         joinGame.SetActive(false);
         hostGame.SetActive(false);
         resultGame.SetActive(false);
+        GameObject.Find("NameGamn").SetActive(false);
     }
 
     public void ShowWait()
