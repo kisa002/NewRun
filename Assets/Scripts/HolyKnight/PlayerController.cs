@@ -11,6 +11,8 @@ public class PlayerController : NetworkBehaviour
 
     public GameObject mainCamera;
 
+    public Sprite[] skinImg;
+
     public float angle, distance;
     public bool isFreeze = false;
 
@@ -31,6 +33,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
+            GetComponent<SpriteRenderer>().sprite = skinImg[GameManager.Instance.currentSkin];
             GameManager.Instance.player = this.gameObject;
         }
 
@@ -97,6 +100,8 @@ public class PlayerController : NetworkBehaviour
 
         distance = Vector2.Distance(prevMouse, currentMouse);
         angle = Vector2.Angle(prevMouse, currentMouse);
+
+        AudioManager.Instance.PlayEffect(0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -111,6 +116,7 @@ public class PlayerController : NetworkBehaviour
         {
             CmdEatItemA();
             
+            AudioManager.Instance.PlayEffect(2);
             NetworkManager.Destroy(collision.gameObject);
         }
 
@@ -118,6 +124,7 @@ public class PlayerController : NetworkBehaviour
         {
             CmdEatItemB();
 
+            AudioManager.Instance.PlayEffect(2);
             NetworkManager.Destroy(collision.gameObject);
         }
 
@@ -125,11 +132,13 @@ public class PlayerController : NetworkBehaviour
         {
             CmdEatItemC(GameManager.Instance.username);
 
+            AudioManager.Instance.PlayEffect(1);
             NetworkManager.Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.name == "FinishLine")
         {
+            AudioManager.Instance.PlayEffect(3);
             CmdResult(username);
         }
 

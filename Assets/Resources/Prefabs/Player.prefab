@@ -95,8 +95,17 @@ MonoBehaviour:
   prevMouse: {x: 0, y: 0}
   currentMouse: {x: 0, y: 0}
   mainCamera: {fileID: 0}
+  skinImg:
+  - {fileID: 21300000, guid: ca48d385af3479f43ada0682bec74301, type: 3}
+  - {fileID: 21300000, guid: 0a17a71bc02ecff448f0744f1c529676, type: 3}
+  - {fileID: 21300000, guid: c55356d8dff646e44ad41c1c47451588, type: 3}
+  - {fileID: 21300000, guid: 92dd30b985f6ea843a6aecb6e57b14be, type: 3}
+  - {fileID: 21300000, guid: 6ac03dd15afdc4e47bb27bac08664d97, type: 3}
+  - {fileID: 21300000, guid: 142fc45f444ccf14ba58047a648d0789, type: 3}
   angle: 0
   distance: 0
+  isFreeze: 0
+  username: Holy-Knight
 --- !u!114 &114244832588906016
 MonoBehaviour:
   m_ObjectHideFlags: 1

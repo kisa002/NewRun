@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    public GameObject waitGame, hostGame, mainGame, joinGame, resultGame;
+    public GameObject waitGame, hostGame, mainGame, joinGame, resultGame, storeGame;
     public Text textResult, textResultBonus, textResultEndrophin, textResultExp, textName;
     public Transform back1, back2, back3;
 
@@ -31,6 +31,11 @@ public class UIManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene("InGame");
+    }
+
+    public void StoreScene()
+    {
+        SceneManager.LoadScene("Store");
     }
 
     public void SetUsername()
@@ -63,6 +68,13 @@ public class UIManager : MonoBehaviour
         textResultExp.text = "EXP + " + exp.ToString();
     }
 
+    public void ShowStore()
+    {
+        storeGame.SetActive(true);
+        hostGame.SetActive(false);
+        mainGame.SetActive(false);
+    }
+
     public void ShowHostGame()
     {
         hostGame.SetActive(true);
@@ -84,6 +96,12 @@ public class UIManager : MonoBehaviour
         hostGame.SetActive(false);
         resultGame.SetActive(false);
         GameObject.Find("NameGamn").SetActive(false);
+    }
+
+    public void ShowStoretoMain()
+    {
+        mainGame.SetActive(true);
+        storeGame.SetActive(false);
     }
 
     public void ShowWait()
