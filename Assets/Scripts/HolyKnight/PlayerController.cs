@@ -26,9 +26,12 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
-            Debug.Log("FAKE");
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.35f);
             return;
+        }
+        else
+        {
+            GameManager.Instance.player = this.gameObject;
         }
 
         GameManager.Instance.StartGame();
@@ -120,7 +123,7 @@ public class PlayerController : NetworkBehaviour
 
         if (collision.gameObject.tag == "ItemC")
         {
-            CmdEatItemC(username);
+            CmdEatItemC(GameManager.Instance.username);
 
             NetworkManager.Destroy(collision.gameObject);
         }
@@ -249,7 +252,9 @@ public class PlayerController : NetworkBehaviour
     void RpcEatItemC(string name)
     {
         if(GameManager.Instance.username != name)
-            StartCoroutine(EatItemC());
+            GameManager.Instance.player.GetComponent<PlayerController>().StartCoroutine(EatItemC());
+
+        Debug.Log(name + " - " + GameManager.Instance.username);
 
         //if (isClient != server)
         //    StartCoroutine(EatItemC());
@@ -282,9 +287,11 @@ public class PlayerController : NetworkBehaviour
 
     private IEnumerator EatItemC()
     {
-        rigidbody2D.drag = 1000f;
+        Debug.Log("START");
+        GameManager.Instance.player.GetComponent<PlayerController>().isFreeze = true;
         yield return new WaitForSeconds(2f);
 
-        rigidbody2D.drag = 10f;
+        GameManager.Instance.player.GetComponent<PlayerController>().isFreeze = false;
+        Debug.Log("END");
     }
 }

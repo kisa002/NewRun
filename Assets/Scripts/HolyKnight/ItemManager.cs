@@ -34,7 +34,7 @@ public class ItemManager : NetworkBehaviour
             GameObject item = Instantiate(prefabItem[rand]);
 
             x = Random.Range(-1.5f, 1.5f);
-            y += Random.Range(1.5f, 4.5f);
+            y += Random.Range(1f, 3.5f);
 
             item.transform.position = new Vector3(x, y, -4f);
 

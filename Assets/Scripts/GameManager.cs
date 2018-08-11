@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public int currentExp = 0;
     public int maxExp = 100;
 
+    public GameObject player;
+
     public string[] playerName = new string[2];
 
     private void Awake()
