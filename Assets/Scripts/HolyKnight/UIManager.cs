@@ -22,10 +22,16 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        //if(Preferse.username != null)
-        //{
-        //    UIManager.Instance.ShowMain();
-        //}
+        if(PlayerPrefs.HasKey("username"))
+        {
+            GameManager.Instance.username = PlayerPrefs.GetString("username");
+            GameManager.Instance.endrophin = PlayerPrefs.GetInt("endrophin");
+            GameManager.Instance.level = PlayerPrefs.GetInt("level");
+            GameManager.Instance.currentExp = PlayerPrefs.GetInt("currentExp");
+            GameManager.Instance.maxExp = PlayerPrefs.GetInt("maxExp");
+
+            UIManager.Instance.ShowMain();
+        }
     }
 
     public void RestartGame()
@@ -42,6 +48,8 @@ public class UIManager : MonoBehaviour
     {
         GameManager.Instance.username = textName.text;
         GameManager.Instance.playerName[0] = textName.text;
+
+        PlayerPrefs.SetString("username", textName.text);
 
         GameObject.Find("NameGame").SetActive(false);
 
@@ -95,7 +103,30 @@ public class UIManager : MonoBehaviour
         joinGame.SetActive(false);
         hostGame.SetActive(false);
         resultGame.SetActive(false);
-        GameObject.Find("NameGamn").SetActive(false);
+        GameObject.Find("NameGame").SetActive(false);
+    }
+
+    public void ShowMainD()
+    {
+        mainGame.SetActive(true);
+        joinGame.SetActive(false);
+        hostGame.SetActive(false);
+        resultGame.SetActive(false);
+
+        GameManager.Instance.player.GetComponent<PlayerController>().Disconnect();
+        SceneManager.LoadScene("InGame");
+    }
+
+    public void ShowStoretoMainD()
+    {
+        storeGame.SetActive(true);
+        joinGame.SetActive(false);
+        mainGame.SetActive(false);
+        hostGame.SetActive(false);
+        resultGame.SetActive(false);
+
+        GameManager.Instance.player.GetComponent<PlayerController>().Disconnect();
+        SceneManager.LoadScene("InGame");
     }
 
     public void ShowStoretoMain()

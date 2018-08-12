@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2018.2.2f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -318,6 +316,9 @@
     <Compile Include="Assets\Scripts\HolyKnight\RoomListItem.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\Test\Test.cs" />
     <Compile Include="Assets\Scripts\HolyKnight\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Kim\ProductCollider.cs" />
+    <Compile Include="Assets\Scripts\Kim\Scroll.cs" />
+    <Compile Include="Assets\Scripts\Kim\UserStatic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />

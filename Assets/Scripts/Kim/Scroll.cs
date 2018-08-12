@@ -16,6 +16,11 @@ public class Scroll : MonoBehaviour
     public Button buyBtn;
     public Button setBtn;
 
+    void Start()
+    {
+        //GameManager.Instance.currentSkin = 1;
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonUp(0))
@@ -26,54 +31,53 @@ public class Scroll : MonoBehaviour
 
     void SetProduct()
     {
-        Debug.Log(productName);
         if (productName == 1)
         {
             posi = 540;
             SetProductPosition();
             SetProductScale(0);
-            SetProductButton(0);
             SetText_Go(1);
+            SetProductButton(0); 
         }
         else if (productName == 2)
         {
             posi = 115;
             SetProductPosition();
             SetProductScale(1);
-            SetProductButton(1);
             SetText_Go(2);
+            SetProductButton(1);
         }
         else if (productName == 3)
         {
             posi = -310;
             SetProductPosition();
             SetProductScale(2);
-            SetProductButton(2);
             SetText_Go(3);
+            SetProductButton(2);
         }
         else if (productName == 4)
         {
             posi = -735;
             SetProductPosition();
             SetProductScale(3);
-            SetProductButton(3);
             SetText_Go(4);
+            SetProductButton(3);
         }
         else if (productName == 5)
         {
             posi = -1160;
             SetProductPosition();
             SetProductScale(4);
-            SetProductButton(4);
             SetText_Go(5);
+            SetProductButton(4);
         }
         else
         {
             posi = -1585;
             SetProductPosition();
             SetProductScale(5);
-            SetProductButton(5);
             SetText_Go(6);
+            SetProductButton(5);
         }
     }
 
@@ -116,11 +120,17 @@ public class Scroll : MonoBehaviour
 
     public void SetProductButton(int ie)
     {
+        Debug.Log("애미 씨발" + ie);
         if (ie == 0)
         {
             buyBtn.interactable = false;
 
+            setBtn.interactable = true;
             if (GameManager.Instance.currentSkin == 1)
+            {
+                setBtn.interactable = false;
+            }
+            if(buyText.text == "구매")
             {
                 setBtn.interactable = false;
             }
@@ -141,7 +151,16 @@ public class Scroll : MonoBehaviour
                 buyBtn.interactable = false;
             }
 
+            setBtn.interactable = true;
             if (GameManager.Instance.currentSkin == 2)
+            {
+                setBtn.interactable = false;
+            }
+            if (UserStatic.muji == false)
+            {
+                setBtn.interactable = false;
+            }
+            if (buyText.text == "구매")
             {
                 setBtn.interactable = false;
             }
@@ -162,7 +181,16 @@ public class Scroll : MonoBehaviour
                 buyBtn.interactable = false;
             }
 
+            setBtn.interactable = true;
             if (GameManager.Instance.currentSkin == 3)
+            {
+                setBtn.interactable = false;
+            }
+            if (UserStatic.egg == false)
+            {
+                setBtn.interactable = false;
+            }
+            if (buyText.text == "구매")
             {
                 setBtn.interactable = false;
             }
@@ -183,7 +211,16 @@ public class Scroll : MonoBehaviour
                 buyBtn.interactable = false;
             }
 
+            setBtn.interactable = true;
             if (GameManager.Instance.currentSkin == 4)
+            {
+                setBtn.interactable = false;
+            }
+            if (UserStatic.star == false)
+            {
+                setBtn.interactable = false;
+            }
+            if (buyText.text == "구매")
             {
                 setBtn.interactable = false;
             }
@@ -204,7 +241,16 @@ public class Scroll : MonoBehaviour
                 buyBtn.interactable = false;
             }
 
+            setBtn.interactable = true;
             if (GameManager.Instance.currentSkin == 5)
+            {
+                setBtn.interactable = false;
+            }
+            if (UserStatic.sun == false)
+            {
+                setBtn.interactable = false;
+            }
+            if (buyText.text == "구매")
             {
                 setBtn.interactable = false;
             }
@@ -225,7 +271,16 @@ public class Scroll : MonoBehaviour
                 buyBtn.interactable = false;
             }
 
+            setBtn.interactable = true;
             if (GameManager.Instance.currentSkin == 6)
+            {
+                setBtn.interactable = false;
+            }
+            if (UserStatic.aboka == false)
+            {
+                setBtn.interactable = false;
+            }
+            if (buyText.text == "구매")
             {
                 setBtn.interactable = false;
             }

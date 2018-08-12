@@ -4,7 +4,7 @@ C:/Users/vnyca/Documents/Development/Unity/NewRun/Builds/Mono/NewRun.apk
 SceneListBegin?
 Assets/Scenes/InGame.unity
 SceneListEnd?
-aaab1141ad5bd6c9aa286174e917b5ef Assembly-CSharp.dll:.UIManager
+e1f74140e282ea9eebdb73dea4604af8 Assembly-CSharp.dll:.UIManager
 c422dd62785a6d0afa870fbd111886ce Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 7b803eb2910e9b4cd5e521ae07b9f7d6 Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
 486cd95c82d8305219c352c06b776e1f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -192,10 +192,11 @@ c31ff9acb65f7a15b5c6fd77c3314d83 Vuforia.UnityExtensions.dll:Vuforia.WireframeBe
 486cd95c82d8305219c352c06b776e1f Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 f16835701e71dd5d6fb1fed4b7aff1d8 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.CameraController
+0d32df6729e95bad86ec58e2925878a2 Assembly-CSharp.dll:.AudioManager
 486cd95c82d8305219c352c06b776e1f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
-81e5941dae6d9de342832884b0121c29 Assembly-CSharp.dll:.PlayerController
+4e49093b891aa69fe8a7b79e7026b4b4 Assembly-CSharp.dll:.PlayerController
 eaf0bcdb10d442a4029d615f41d09957 Unity.TextMeshPro.dll:TMPro.TextContainer
-389c71111fc4e8298629aa0fa8c237bd Assembly-CSharp.dll:.GameManager
+2cef0d9f5f11fa3b4623974dbd4ac18f Assembly-CSharp.dll:.GameManager
 201273fb4f889724fb090164b7d6c657 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 486cd95c82d8305219c352c06b776e1f UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 0f27c39183b9eb95eba0a228bea28273 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -225,6 +226,7 @@ e033f131358cea5a0eabf9561e781deb UnityEngine.TestRunner.dll:UnityEngine.TestTool
 28a95668dd28649297d595834fe8417e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 28a95668dd28649297d595834fe8417e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
 3431a962cab4315f7ac27abd2a824673 Assembly-CSharp.dll:.ItemManager
+67cc68c62d2aab4a0b2cc1f78152f5c6 Assembly-CSharp.dll:.Scroll
 d75dc834c5dec688db75a55a1724c90f UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 486cd95c82d8305219c352c06b776e1f UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
 e1ea12ca952c81d81a9a21fdf34446ed UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
@@ -234,6 +236,7 @@ dfd33ff9ae3ce8d7ca1f22b475ec2387 UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 aac9c55ae7ba4b95b852a7d9c191acd1 Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 0a006f3734181ba8b26758f0866152c0 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 69013f7c915b09bc00c49d17d4e56757 Assembly-CSharp.dll:.RoomListItem
+486cd95c82d8305219c352c06b776e1f Assembly-CSharp.dll:.ProductCollider
 e04611b8715e6833d2bd7010fc6be10b Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 2f9af06a78208a67db480e9bfed4a076 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 9318334b30e9f195f573b2ce00154b95 Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient

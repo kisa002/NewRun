@@ -33,7 +33,9 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            GetComponent<SpriteRenderer>().sprite = skinImg[GameManager.Instance.currentSkin];
+            AudioManager.Instance.PlayBgm();
+
+            GetComponent<SpriteRenderer>().sprite = skinImg[GameManager.Instance.currentSkin-1];
             GameManager.Instance.player = this.gameObject;
         }
 
@@ -221,9 +223,12 @@ public class PlayerController : NetworkBehaviour
         UIManager.Instance.ShowResult();
         UIManager.Instance.SetResultData(isWin, isLevelup, endrophin, exp);
 
-        //MatchInfo matchInfo = NetworkManager.singleton.matchInfo;
-        //NetworkManager.singleton.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, NetworkManager.singleton.OnDropConnection);
-        //NetworkManager.singleton.StopHost();
+        PlayerPrefs.SetInt("endrophin", GameManager.Instance.endrophin);
+        PlayerPrefs.SetInt("level", GameManager.Instance.level);
+        PlayerPrefs.SetInt("currentExp", GameManager.Instance.currentExp);
+        PlayerPrefs.SetInt("maxExp", GameManager.Instance.maxExp);
+
+        Time.timeScale = 0;
     }
 
     [Command]
@@ -269,6 +274,13 @@ public class PlayerController : NetworkBehaviour
 
         //if (isClient != server)
         //    StartCoroutine(EatItemC());
+    }
+
+    public void Disconnect()
+    {
+        MatchInfo matchInfo = NetworkManager.singleton.matchInfo;
+        NetworkManager.singleton.matchMaker.DropConnection(matchInfo.networkId, matchInfo.nodeId, 0, NetworkManager.singleton.OnDropConnection);
+        NetworkManager.singleton.StopHost();
     }
 
     IEnumerator Freeze()
